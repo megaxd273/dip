@@ -1,0 +1,72 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+.static-img{
+    background-image: url(./media/background.png);
+    height: 100%;
+    flex-grow: 8.5;
+}
+.container-form{
+    background-color: white;
+    height: 100%;
+    flex-grow: 1.5;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.option-picker{
+    margin-top: 2vw;
+    width: 60%;
+    flex-grow: 1;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content:space-evenly;
+    align-content: flex-start;
+    
+    
+}
+.option-picker button{
+    font-size: 2vw;
+    font-family: "Rubik";
+    background-color: white;
+    border: 2px solid white;
+}
+.option-picker button:focus{
+    border-bottom: 2px solid rgb(164, 30, 204);
+}
+.action-form{
+    flex-grow: 9;
+    width: 60%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+.form-field {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+}
+.form-field input {
+    font-size: 1vw;
+    font-family: "Rubik";
+    width: 100%;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    color: #808080;
+}
+.age-block{
+    font-size: 1.5vw;
+    font-family: "Rubik";
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.field-inline-block input{
+    font-size: 1.2vw;
+    font-family: "Rubik";
+    border-radius: 0.25rem;
+}
