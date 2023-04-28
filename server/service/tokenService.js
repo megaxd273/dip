@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../sequelize/models/Models');
+const {User} = require('../sequelize/models/Models');
 
 module.exports = new class TokenService{
     generateTokens(payload){
@@ -42,12 +42,11 @@ module.exports = new class TokenService{
         const tokenData = await User.findOne({where:{refreshToken: token}});
         return tokenData;
     }
-    async removeToken(token){
-        const tokenData = await User.update({refreshToken: ''},{
-            where:{
-                refreshToken: token
-            }
+    async removeToken(refreshToken) {
+        const [numberOfAffectedRows, [updatedToken]] = await User.update({ refreshToken: '' }, {
+          where: { refreshToken },
+          returning: true,
         });
-        return tokenData;
-    }
+        return updatedToken;
+      }
 }

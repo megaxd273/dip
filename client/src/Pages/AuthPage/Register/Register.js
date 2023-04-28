@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import $axi from "../../../http/axi";
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const [modal, setModal] = useState(null);
+    const navigate = useNavigate();
     const [data, setData] = useState({
-        name:"",
-        surname:"",
-        email:"",
-        day:"",
-        month:"",
-        year:""
+        firstName:"",
+        lastName:"",
+        middleName:"",
+        login:"",
+        password:"",
     });
     const handleChange = (e)=>{
         const value = e.target.value;
@@ -20,56 +22,60 @@ const Register = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         const userData = {
-            name: data.name,
-            surname: data.surname,
-            email: data.email,
-            birthDate: `${data.day}-${data.month}-${data.year}`
+            login: data.login,
+            password: data.password,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            middleName: data.middleName
         };
-        axios.post("https://jsonplaceholder.typicode.com/users", userData)
+        $axi.post("/api/registration", userData)
         .then(response=>{
             console.log(response.data);
+            localStorage.setItem('accessToken',response.data.accessToken);
+            localStorage.getItem('accessToken');
+            navigate('/Dashboard');
+
+        })
+        .catch(error => {
+            if (error.response && error.response.status === 408) {
+                alert(error.response.data.message);
+            } else {
+                console.log(error);
+            }
         });
     }
     return (
         <form className="action-form" onSubmit={handleSubmit}>
             <div className="form-field">
-                <input name="name" className="form-input" type="text" placeholder="Name" required
-                value={data.name}
+                <input name="firstName" className="form-input" type="text" placeholder="Name" required
+                value={data.firstName}
                 onChange={handleChange}></input>
             </div>
             <div className="form-field">
-                <input name="surname" className="form-input" type="text" placeholder="Surname" required
-                value={data.surname}
+                <input name="lastName" className="form-input" type="text" placeholder="Surname" required
+                value={data.lastName}
                 onChange={handleChange}></input>
             </div>
             <div className="form-field">
-                <input name="email" className="form-input" type="text" placeholder="Email" required
-                value={data.email}
+                <input name="middleName" className="form-input" type="text" placeholder="Patronymic" required
+                value={data.middleName}
                 onChange={handleChange}></input>
             </div>
-            <div className='age-block'>
-                <div className="field-inline-block">
-                    <input name="day" type="text" pattern="[0-9]*" maxLength="2" size="2" className="date-field" placeholder='DD' 
-                    value={data.day}
-                    onChange={handleChange}/>
-                </div>
-                /
-                <div className="field-inline-block">
-                    <input name="month" type="text" pattern="[0-9]*" maxLength="2" size="2" className="date-field" placeholder="MM" 
-                    value={data.month}
-                    onChange={handleChange}/>
-                </div>
-                /
-                <div className="field-inline-block">
-                    <input name="year" type="text" pattern="[0-9]*" maxLength="4" size="4" className="date-field date-field--year" placeholder="yyyy" 
-                    value={data.year}
-                    onChange={handleChange}/>
-                </div>
+            <div className="form-field">
+                <input name="login" className="form-input" type="text" placeholder="Login" required
+                value={data.login}
+                onChange={handleChange}></input>
             </div>
             <div className="form-field">
-                <input type="submit" value="Log in" />
+                <input name="password" className="form-input" type="text" placeholder="Password" required
+                value={data.password}
+                onChange={handleChange}></input>
+            </div>
+            <div className="form-field">
+                <input type="submit" value="Register" />
             </div>
         </form>
     )
 }
+
 export default Register;

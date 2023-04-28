@@ -19,6 +19,7 @@
 .option-picker{
     margin-top: 2vw;
     width: 60%;
+    height: 3vw;
     flex-grow: 1;
     display: flex;
     flex-flow: row;
@@ -40,6 +41,7 @@
 .action-form{
     flex-grow: 9;
     width: 60%;
+    max-height: 80%;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;

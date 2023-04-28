@@ -1,12 +1,7 @@
 const {sq, types} = require('./index');
 
 const User = sq.define('user',{
-    id:{
-        type: types.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    email:{
+    login:{
         type: types.STRING,
         allowNull:false,
         unique:true,
@@ -25,6 +20,32 @@ const User = sq.define('user',{
     }
 });
 
+const Profile = sq.define('profile', {
+    firstName: {
+      type: types.STRING,
+      allowNull: false
+    },
+    lastName: {
+      type: types.STRING,
+      allowNull: false
+    },
+    middleName: {
+      type: types.STRING,
+      allowNull: false
+    },
+    academicDegree: {
+      type: types.STRING,
+      defaultValue: "не указано"
+    },
+    academicTitle: {
+      type: types.STRING,
+      defaultValue: "не указано"
+    }
+  });
 
-module.exports = User;
+User.hasOne(Profile);
+Profile.belongsTo(User);
+
+
+module.exports = { User, Profile};
     

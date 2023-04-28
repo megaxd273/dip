@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import $axi from "../../../http/axi";
 
 const Login = () => {
+    const navigate = useNavigate()
     const [data,setData] = useState({
-        email:"",
+        login:"",
         password:""
     });
     const handleChange = (e)=>{
@@ -16,20 +19,21 @@ const Login = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         const userData = {
-
-            email: data.email,
-            password:data.password
+            login: data.login,
+            password: data.password
         }
-        axios.post("https://jsonplaceholder.typicode.com/users", userData)
+        $axi.post("/api/login", userData)
         .then(response=>{
-            console.log(response.data);
+            console.log(response);
+            localStorage.setItem('accessToken',response.data.accessToken);
+            navigate('/Dashboard')
         });
     }
     return (
         <form className="action-form" onSubmit={handleSubmit}>
             <div className="form-field">
-                <input name="email" className="form-input" type="text" placeholder="Username" required
-                value={data.email}
+                <input name="login" className="form-input" type="text" placeholder="Username" required
+                value={data.login}
                 onChange={handleChange}></input>
             </div>
             <div className="form-field">

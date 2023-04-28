@@ -10,10 +10,6 @@ const AuthPage = ()=>{
     }
     return(
         <div className="container">
-            {/* <Routes>
-                    <Route path='/login' element={<Login/>}/>
-                    <Route path='/register' element={<Register/>}/>
-            </Routes> */}
             <div className="static-img">
                 <strong>Diploma Project</strong>
             </div>

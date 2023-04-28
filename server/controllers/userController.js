@@ -9,8 +9,8 @@ module.exports = new class UserController{
             if(!errors.isEmpty()){
                 return next(ApiError.BadRequest('ошибка при валидации', errors.array()));
             }
-            const {email, password} = req.body;
-            const userData = await userService.registration(email, password);
+            const {login, password, firstName, lastName, middleName} = req.body;
+            const userData = await userService.registration(login, password, {firstName, lastName, middleName});
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30* 24 * 60 * 60 * 1000, httpOnly: true});
             return res.json(userData);
         } catch (e) {
@@ -19,21 +19,28 @@ module.exports = new class UserController{
     }
     async login(req,res,next){
         try {
-            const {email, password} = req.body;
-            const userData = await userService.login(email, password);
+            const {login, password} = req.body;
+            const userData = await userService.login(login, password);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30* 24 * 60 * 60 * 1000, httpOnly: true});
+            console.log(res);
             return res.json(userData);
         } catch (e) {
+            console.log(e)
             next(e);
         }
     }
     async logout(req,res,next){
+        console.log('qweweqw')
         try {
             const {refreshToken} = req.cookies;
+            if (!refreshToken) {
+                console.log("cookie controller")
+            }
             const token = await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
             return res.json(token);
         } catch (e) {
+            console.log(e);
             next(e);
         }
     }

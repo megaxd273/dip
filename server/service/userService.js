@@ -1,4 +1,4 @@
-const User = require('../sequelize/models/Models');
+const {User,Profile} = require('../sequelize/models/Models');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const tokenService = require('./tokenService');
@@ -6,14 +6,20 @@ const ApiError = require('../middleware/apiError')
 const UserDto = require('../dtos/userDto');
 
 module.exports = new class UserService{
-    async registration(email, password){
-        const candidate = await User.findOne({ where: { email } });
+    async registration(login, password, profileData){
+        const candidate = await User.findOne({ where: { login } });
         if(candidate){
-            throw ApiError.BadRequest(`User with ${email} already exists`);
+            throw ApiError.BadRequest(`User with ${login} already exists`);
         }
         const hashedPassword = await bcrypt.hash(password, 3);
         
-        const user = await User.create({email, password: hashedPassword});
+        const user = await User.create({ login, password: hashedPassword });
+        await Profile.create({
+            firstName: profileData.firstName,
+            lastName: profileData.lastName,
+            middleName: profileData.middleName,
+            userId: user.id
+          });
 
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({...userDto});
@@ -21,8 +27,8 @@ module.exports = new class UserService{
 
         return {...tokens, user: userDto};
     }
-    async login(email, password){
-        const user = await User.findOne({ where: { email } });
+    async login(login, password){
+        const user = await User.findOne({ where: { login } });
         if (!user) {
             throw ApiError.BadRequest("пользователь с такой почтой не найден");
         }
@@ -37,6 +43,9 @@ module.exports = new class UserService{
         return {...tokens, user: userDto};
     }
     async logout(refreshToken){
+        if(!refreshToken){
+            console.log("token undefined");
+        }
         const token = await tokenService.removeToken(refreshToken);
         return token;
     }
@@ -52,7 +61,11 @@ module.exports = new class UserService{
     }
     async getUsers(){
         const users = await User.findAll({
-            attributes:['id','email', 'password', 'role']
+            attributes:['id','login', 'password', 'role'],
+            include: {
+                model: Profile,
+                attributes: ['firstName', 'lastName', 'middleName']
+              }
         });
         return users;
     }
