@@ -1,0 +1,109 @@
+.faculty-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 60%;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .faculty-control {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .faculty-control h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .faculty-control > div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .faculty-control h3 {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  .faculty-control input[type="text"] {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .faculty-control button {
+    padding: 8px 16px;
+    background-color: #0088cc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .faculty-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 96%;
+    
+  }
+  
+  .faculty-list h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .faculty-item {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Скрыть переполнение содержимого */
+    height: 30px; /* Задать фиксированную высоту */
+    transition: height 0.3s ease; /* Добавить плавный переход высоты */
+  }
+  
+  .faculty-item.active {
+    height: auto; /* Автоматическая высота при активном состоянии */
+  }
+  
+  .faculty-item-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .faculty-item-content .edit-input input[type="text"] {
+    width: 200px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .faculty-item-content .edit-buttons button {
+    padding: 4px 8px;
+    margin-left: 10px;
+    background-color: #0088cc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  

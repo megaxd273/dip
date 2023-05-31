@@ -1,6 +1,5 @@
-const {User,Profile} = require('../sequelize/models/Models');
+const {User,Profile} = require('../models/Models');
 const bcrypt = require('bcrypt');
-const uuid = require('uuid');
 const tokenService = require('./tokenService');
 const ApiError = require('../middleware/apiError')
 const UserDto = require('../dtos/userDto');
@@ -30,11 +29,14 @@ module.exports = new class UserService{
     async login(login, password){
         const user = await User.findOne({ where: { login } });
         if (!user) {
-            throw ApiError.BadRequest("пользователь с такой почтой не найден");
+            throw ApiError.badRequestError("пользователь с такой почтой не найден");
         }
-        const passwordCheck = await bcrypt.compare(password, user.password);
-        if (!passwordCheck) {
-            throw ApiError.BadRequest("Неверный пароль");
+        // const passwordCheck = await bcrypt.compare(password, user.password);
+        // if (!passwordCheck) {
+        //     throw ApiError.BadRequest("Неверный пароль");
+        // }
+        if (password!= user.password) {
+            throw ApiError.badRequestError("Неверный пароль");
         }
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({...userDto});
@@ -51,13 +53,19 @@ module.exports = new class UserService{
     }
     async refresh(token){
         if (!token) {
-            throw ApiError.UnauthorizedError();
+            throw ApiError.unauthorizedError();
         }
         const userData = tokenService.validateRefreshToken(token);
         const dbToken = tokenService.findToken(token);
         if (!userData || !dbToken) {
-            throw ApiError.UnauthorizedError();
+            throw ApiError.unauthorizedError();
         }
+        const user = await User.findByPk(userData.id)
+        const userDto = new UserDto(user);
+        const tokens = tokenService.generateTokens({...userDto});
+        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+        return {...tokens, user: userDto};
     }
     async getUsers(){
         const users = await User.findAll({

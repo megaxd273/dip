@@ -1,0 +1,32 @@
+{
+  "development": {
+    "dialect": "postgres",
+    "host": "localhost",
+    "database": "authorization",
+    "username": "postgres",
+    "password": "123",
+    "define": {
+      "timestamps": false
+    }
+  },
+  "test": {
+    "dialect": "postgres",
+    "host": "localhost",
+    "database": "database_test",
+    "username": "root",
+    "password": null,
+    "define": {
+      "timestamps": false
+    }
+  },
+  "production": {
+    "dialect": "postgres",
+    "host": "localhost",
+    "database": "database_production",
+    "username": "root",
+    "password": null,
+    "define": {
+      "timestamps": false
+    }
+  }
+}

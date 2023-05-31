@@ -1,13 +1,10 @@
-import $axi from "../http/axi";
+import $axi from "../http/index";
 
 export default class AuthService{
-    static async login(login, password){
-        return $axi.post("/api/login",{login, password})
-    }
-    static async register(login, password, ){
-        return $axi.post("/api/login",{login, password})
+    static async login(userData){
+        return $axi.post("/api/auth/login", userData);
     }
     static async logout(){
-        return $axi.post("/api/logout")
+        return await $axi.post('/api/auth/logout');
     }
 }

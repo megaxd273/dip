@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {User} = require('../sequelize/models/Models');
+const {User} = require('../models/Models');
 
 module.exports = new class TokenService{
     generateTokens(payload){

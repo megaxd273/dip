@@ -1,9 +1,8 @@
 const express = require('express');
 const cors = require ('cors');
 const cookieParser = require ('cookie-parser');
-const {sq} = require('./sequelize/models/index');
-const {User} = require('./sequelize/models/Models');
-const router = require('./routes/index');
+const {sq} = require('./models/index');
+const router = require('./routes');
 const errorMiddleware = require('./middleware/errorMiddleware');
 require('dotenv').config();
 
@@ -24,7 +23,7 @@ app.use(errorMiddleware)
 
 const startApp = async ()=>{
     try {
-        // await sq.authenticate().then(()=>console.log('ok')).catch(error => console.log(error));
+        await sq.authenticate().then(()=>console.log('ok')).catch(error => console.log(error));
         // await sq.sync({force: true}).then(result=>{
         //     console.log(result);
         //   })

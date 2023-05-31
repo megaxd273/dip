@@ -1,20 +1,20 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import $axi from "../../http/axi";
+import $axi from "../../http/index";
 
 const Dashboard = ()=>{
     const navigate = useNavigate();
     const [users,setUsers]= useState([]);
     const handleLogout = async () => {
-        await $axi.post('/api/logout');
+        await $axi.post('/api/auth/logout');
         localStorage.removeItem('accessToken');
         navigate('/');
       };
 
     useEffect(()=>{
       const fetchUsers = async ()=>{
-        const response = await $axi.get('/api/users');
+        const response = await $axi.get('/api/admin/users');
         console.log(response)
         setUsers(response.data)
       };
@@ -25,7 +25,7 @@ const Dashboard = ()=>{
       <div className="sidebar">
         {users.map((user) => (
           <div key={user.id}>
-            <p>{`${user.profile.firstName} ${user.profile.lastName} ${user.profile.middleName}`}</p>
+            <p>{`${user.id} <${user.password}> ${user.login} ${user.role} `}</p>
           </div>
         ))}
       </div>

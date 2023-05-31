@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import $axi from "../../../http/axi";
+import $axi from "../../../http/index";
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {

@@ -1,0 +1,78 @@
+.department-container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .department-heads {
+    flex-basis: 50%;
+  }
+  
+  .department-head {
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .department-heads h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .department-heads button {
+    padding: 8px 16px;
+    background-color: #0088cc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .create-department-head {
+    flex-basis: 40%;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-department-head h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .create-department-head form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .create-department-head form label input[type="text"],
+  .create-department-head form label input[type="password"],
+  .create-department-head form label select {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  
+  .create-department-head form button[type="submit"] {
+    padding: 8px 16px;
+    background-color: #0088cc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  

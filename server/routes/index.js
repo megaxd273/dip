@@ -1,18 +1,12 @@
-const Router = require('express').Router;
-const userController = require('../controllers/userController');
-const {body} = require('express-validator');
-const authMiddleware = require('../middleware/authMiddleware');
-const roleMiddleware = require('../middleware/roleMiddleware');
+const express = require('express');
+const authRouter = require('./authRouter');
+const adminRouter = require('./adminRouter');
+const depHeadRouter = require('./depHeadRouter');
 
-const router = new Router();
+const router = express.Router();
 
-router.post('/registration',
-    body('login').isLength({min:3, max:32}),
-    body('password').isLength({min:3, max:32}),
-    userController.registration);
-router.post('/login', userController.login);
-router.post('/logout', userController.logout);
-router.get('/refresh', userController.refresh);
-router.get('/users' ,authMiddleware, userController.getUsers);
+router.use('/auth', authRouter);
+router.use('/admin', adminRouter);
+router.use('/dephead', depHeadRouter)
 
 module.exports = router;
