@@ -22,20 +22,14 @@ module.exports = new class AuthController{
             const {login, password} = req.body;
             const userData = await userService.login(login, password);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30* 24 * 60 * 60 * 1000, httpOnly: true});
-            console.log(res);
             return res.json(userData);
         } catch (e) {
-            console.log(e)
             next(e);
         }
     }
     async logout(req,res,next){
-        console.log('qweweqw')
         try {
             const {refreshToken} = req.cookies;
-            if (!refreshToken) {
-                console.log("cookie controller")
-            }
             const token = await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
             return res.json(token);

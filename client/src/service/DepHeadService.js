@@ -1,8 +1,8 @@
 import $axi from "../http/index";
 
 export default class DepHeadService {
-    static async getTeachers() {
-        return $axi.get("/api/dephead/teachers");
+    static async getTeachers(id) {
+        return $axi.get(`/api/dephead/teachers/${id}`);
     }
 
     static async createTeacher(teacherData) {

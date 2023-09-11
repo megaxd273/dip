@@ -3,7 +3,8 @@ const depHeadService = require('../service/depHeadService');
 class DepHeadController {
   async getTeachers(req, res, next) {
     try {
-      const teachers = await depHeadService.getTeachers();
+      const {id} = req.params
+      const teachers = await depHeadService.getTeachers(id);
       return res.json(teachers);
     } catch (error) {
       next(error);

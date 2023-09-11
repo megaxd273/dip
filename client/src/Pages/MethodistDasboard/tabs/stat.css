@@ -1,0 +1,19 @@
+.stat-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .stat-table th,
+  .stat-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .stat-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .stat-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  

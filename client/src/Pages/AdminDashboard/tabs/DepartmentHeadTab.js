@@ -171,6 +171,7 @@ const DepartmentHeadTab = () => {
                         <input
                             type="text"
                             name="login"
+                            required
                             value={newDepartmentHead.login}
                             onChange={handleInputChange}
                         />
@@ -180,6 +181,7 @@ const DepartmentHeadTab = () => {
                         <input
                             type="password"
                             name="password"
+                            required
                             value={newDepartmentHead.password}
                             onChange={handleInputChange}
                         />
@@ -189,6 +191,7 @@ const DepartmentHeadTab = () => {
                         <select
                             name="facultyId"
                             value={newDepartmentHead.facultyId}
+                            required
                             onChange={handleFacultyChange}
                         >
                             <option value="">Выберите факультет</option>
@@ -203,6 +206,7 @@ const DepartmentHeadTab = () => {
                         Кафедра:
                         <select
                             name="departmentId"
+                            required
                             value={newDepartmentHead.departmentId}
                             onChange={handleInputChange}
                         >
@@ -220,6 +224,7 @@ const DepartmentHeadTab = () => {
                             type="text"
                             name="firstName"
                             value={newDepartmentHead.firstName}
+                            required
                             onChange={handleInputChange}
                         />
                     </label>
@@ -229,6 +234,7 @@ const DepartmentHeadTab = () => {
                             type="text"
                             name="lastName"
                             value={newDepartmentHead.lastName}
+                            required
                             onChange={handleInputChange}
                         />
                     </label>
@@ -238,6 +244,7 @@ const DepartmentHeadTab = () => {
                             type="text"
                             name="middleName"
                             value={newDepartmentHead.middleName}
+                            required
                             onChange={handleInputChange}
                         />
                     </label>

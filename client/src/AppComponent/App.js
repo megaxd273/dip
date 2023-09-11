@@ -5,15 +5,18 @@ import { observer } from "mobx-react-lite"
 import Navbar from '../components/Navbar/Navbar';
 import AdminDashboard from '../Pages/AdminDashboard/AdminDashboard';
 import DepHeadDashboard from '../Pages/DepartmentHeadDashboard/DepartmentHeadDashboard';
+import TeacherDashboard from '../Pages/TeacherDashboard/TeacherDashboard';
+import Methboard from '../Pages/MethodistDasboard/board';
 
 function App() {
   const { store } = useContext(context)
+  const [selectedTab, setSelectedTab] = useState("");
   useEffect(() => {
+    setSelectedTab("def");
     if (localStorage.getItem('accessToken')) {
       store.checkAuth()
     }
   }, [])
-  const [selectedTab, setSelectedTab] = useState("def");
   if (store.isLoading) {
     return <div>Загрузка....</div>
   }
@@ -31,6 +34,8 @@ function App() {
       <Navbar selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
       {store.user.role ==="ADMIN" && <AdminDashboard selectedTab={selectedTab} />}
       {store.user.role ==="DEPARTMENT_HEAD" && <DepHeadDashboard selectedTab={selectedTab} />}
+      {store.user.role ==="TEACHER" && <TeacherDashboard selectedTab={selectedTab} />}
+      {store.user.role ==="METHODIST" && <Methboard selectedTab={selectedTab}/>}
       
     </div>
   );

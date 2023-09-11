@@ -72,7 +72,55 @@ const Navbar = observer(({ selectedTab, setSelectedTab }) => {
             
           </>
         )}
+        {store.user.role === 'TEACHER' && (
+          <>
+            <li
+              className={`navbar-menu-item ${selectedTab === "def" ? "active" : ""}`}
+              onClick={() => handleTabChange("def")}
+            >
+              Профиль
+            </li>
+            <li
+              className={`navbar-menu-item ${selectedTab === "loads" ? "active" : ""}`}
+              onClick={() => handleTabChange("loads")}
+            >
+              Нагрузка
+            </li>
+            <li
+              className={`navbar-menu-item ${selectedTab === "overall" ? "active" : ""}`}
+              onClick={() => handleTabChange("overall")}
+            >
+              Статистика
+            </li>
 
+            
+          </>
+        )}
+          {store.user.role === 'METHODIST' && (
+          <>
+            <li
+              className={`navbar-menu-item ${selectedTab === "def" ? "active" : ""}`}
+              onClick={() => handleTabChange("def")}
+            >
+              Договоры
+            </li>
+            <li
+              className={`navbar-menu-item ${selectedTab === "loads" ? "active" : ""}`}
+              onClick={() => handleTabChange("loads")}
+            >
+              Дополнения
+            </li>
+            <li
+              className={`navbar-menu-item ${selectedTab === "stat" ? "active" : ""}`}
+              onClick={() => handleTabChange("stat")}
+            >
+              Статистика
+            </li>
+            
+
+            
+          </>
+        )}
       </ul>
       <div className='.navbar-user'>
         {store.user.login}

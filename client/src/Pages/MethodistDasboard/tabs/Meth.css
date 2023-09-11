@@ -1,0 +1,108 @@
+.methodist-dashboard {
+    margin: 20px;
+  }
+  
+  .dashboard-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .teacher-select {
+    margin-bottom: 20px;
+  }
+  
+  .contracts-heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .contracts-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .contract-item {
+    margin-bottom: 20px;
+  }
+  .contract-form {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .contract-form label {
+    width: 150px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+  }
+  
+  .contract-form input {
+    width: 100px;
+    padding: 5px;
+    margin-bottom: 5px;
+    
+  }
+  
+  .contract-form table {
+    margin-top: 10px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .contract-form th,
+  .contract-form td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: left;
+  }
+  
+  .contract-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4c8eff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .contract-details {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .contract-details div {
+    margin-bottom: 5px;
+  }
+  
+  .contract-details table {
+    margin-top: 10px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .contract-details th,
+  .contract-details td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: left;
+  }
+  
+  .contract-details button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4c8eff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  
+  /* Дополнительные стили по желанию */
+  
+  

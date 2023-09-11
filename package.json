@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "docxtemplater": "^3.37.9",
     "dotenv": "^16.0.3",
     "pg": "^8.10.0",
+    "pizzip": "^3.1.4",
     "react-router-dom": "^6.9.0",
     "sequelize": "^6.31.0"
   },

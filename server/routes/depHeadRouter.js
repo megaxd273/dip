@@ -3,7 +3,7 @@ const depHeadRouter = express.Router();
 const departmentHeadController = require('../controllers/departmentHeadController');
 const roleMiddleware = require('../middleware/roleMiddleware');
 
-depHeadRouter.get('/teachers', roleMiddleware("DEPARTMENT_HEAD"), departmentHeadController.getTeachers);
+depHeadRouter.get('/teachers/:id', roleMiddleware("DEPARTMENT_HEAD"), departmentHeadController.getTeachers);
 
 depHeadRouter.post('/teachers', roleMiddleware("DEPARTMENT_HEAD"), departmentHeadController.createTeacher);
 

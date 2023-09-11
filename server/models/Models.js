@@ -40,13 +40,16 @@ const Profile = sq.define('profile', {
   academicTitle: {
     type: types.STRING,
     allowNull: true
-  },
+  }
+});
+
+const Contract = sq.define('contract', {
   contractNumber: {
     type: types.STRING,
     allowNull: true
   },
   contractDate: {
-    type: types.DATE,
+    type: types.DATEONLY,
     allowNull: true
   },
   contractVolume: {
@@ -54,11 +57,11 @@ const Profile = sq.define('profile', {
     allowNull: true
   },
   contractPeriodStart: {
-    type: types.DATE,
+    type: types.DATEONLY,
     allowNull: true
   },
   contractPeriodEnd: {
-    type: types.DATE,
+    type: types.DATEONLY,
     allowNull: true
   },
   contractPayment: {
@@ -82,7 +85,7 @@ const Profile = sq.define('profile', {
     allowNull: true
   },
   issueDate: {
-    type: types.DATE,
+    type: types.DATEONLY,
     allowNull: true
   },
   issuedBy: {
@@ -116,108 +119,145 @@ const Profile = sq.define('profile', {
   mobilePhoneNumber: {
     type: types.STRING,
     allowNull: true
-  },
-
+  }
 });
+const Addendum = sq.define('addendum', {
+  addendumNumber: {
+    type: types.STRING,
+    allowNull: true
+  },
+  addendumDate: {
+    type: types.DATEONLY,
+    allowNull: true
+  },
+  addendumVolume: {
+    type: types.STRING,
+    allowNull: true
+  },
+});
+
 const Faculty = sq.define('faculty',{
   name: {
     type: types.STRING,
     allowNull: false
   }
 });
+
 const Department = sq.define('department',{
   name: {
     type: types.STRING,
     allowNull: false
   }
 });
-const Discipline = sq.define('discipline',{
-  name: {
+
+const Load = sq.define('load', {
+  date: {
+    type: types.DATEONLY,
+    allowNull:false
+  },
+  discipline: {
     type: types.STRING,
     allowNull: false
   }
 });
-const Load = sq.define('load', {
-  date: {
-    type: types.DATE,
-    allowNull: false
-  },
+
+const Activity = sq.define('activity', {
   lectures: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   practicalLessons: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   labWorks: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   courseProjects: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   RGR: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   controlWorks: {
     type: types.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  },
-  exams: {
-    type: types.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  },
-  consultations: {
-    type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   credits: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: 0
+  },
+  consultations: {
+    type: types.INTEGER,
+    allowNull: true,
+    defaultValue: 0
+  },
+  exams: {
+    type: types.INTEGER,
+    allowNull: true,
     defaultValue: 0
   },
   practiceGuidance: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: 0
+  },
+  diplomaGuidance: {
+    type: types.INTEGER,
+    allowNull: true,
     defaultValue: 0
   },
   diplomaConsultation: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   diplomaReview: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   GEC: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   magistracyGuidance: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   },
   postgraduateGuidance: {
     type: types.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0
   }
 });
+
+Contract.hasOne(Addendum, { onDelete: 'CASCADE' });
+Addendum.belongsTo(Contract);
+
+Addendum.belongsTo(Activity);
+Activity.hasOne(Addendum);
+
+Load.belongsTo(Activity);
+Activity.hasOne(Load);
+
+User.hasOne(Contract, { onDelete: 'CASCADE' });
+Contract.belongsTo(User);
+
+Contract.belongsTo(Activity);
+Activity.hasOne(Contract);
 
 
 Profile.belongsTo(Department);
@@ -226,8 +266,6 @@ Profile.belongsTo(Faculty);
 User.hasOne(Profile, { onDelete: 'CASCADE' });
 Profile.belongsTo(User);
 
-Load.belongsToMany(Discipline, { through: 'LoadDiscipline', onDelete: 'CASCADE' });
-Discipline.belongsToMany(Load, { through: 'LoadDiscipline', onDelete: 'CASCADE' });
 
 Faculty.hasMany(Department, { onDelete: 'CASCADE' });
 Department.belongsTo(Faculty);
@@ -235,5 +273,5 @@ Department.belongsTo(Faculty);
 User.hasMany(Load, { onDelete: 'CASCADE' });
 Load.belongsTo(User);
 
-module.exports = { User, Profile, Load, Discipline, Faculty, Department };
+module.exports = { User, Profile, Load, Faculty, Department, Activity, Addendum, Contract };
 

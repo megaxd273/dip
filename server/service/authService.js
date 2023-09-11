@@ -31,13 +31,13 @@ module.exports = new class UserService{
         if (!user) {
             throw ApiError.badRequestError("пользователь с такой почтой не найден");
         }
-        // const passwordCheck = await bcrypt.compare(password, user.password);
-        // if (!passwordCheck) {
-        //     throw ApiError.BadRequest("Неверный пароль");
-        // }
-        if (password!= user.password) {
+        const passwordCheck = await bcrypt.compare(password, user.password);
+        if (!passwordCheck) {
             throw ApiError.badRequestError("Неверный пароль");
         }
+        // if (password!= user.password) {
+        //     throw ApiError.badRequestError("Неверный пароль");
+        // }
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({...userDto});
         await tokenService.saveToken(userDto.id, tokens.refreshToken);

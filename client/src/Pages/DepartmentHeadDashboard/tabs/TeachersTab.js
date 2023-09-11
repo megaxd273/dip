@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import React, { useContext, useEffect, useState } from "react";
+import { context } from "../../..";
 import DepHeadService from "../../../service/DepHeadService";
 import '../../AdminDashboard/tabs/DepHeads.css';
 
@@ -17,7 +19,8 @@ const getRoleName = (role) => {
   }
 };
 
-const TeacherTab = () => {
+const TeacherTab = observer(() => {
+  const {store} = useContext(context)
   const [teachers, setTeachers] = useState([]);
   const [newTeacher, setNewTeacher] = useState({
     login: "",
@@ -41,11 +44,10 @@ const TeacherTab = () => {
 
   const fetchTeachers = async () => {
     try {
-      const response = await DepHeadService.getTeachers();
-      console.log(response.data)
+      const response = await DepHeadService.getTeachers(store.faculty);
       setTeachers(response.data);
     } catch (error) {
-      console.log("Failed to fetch teachers:", error);
+      console.log(error.response?.data?.message);
     }
   };
 
@@ -101,7 +103,7 @@ const TeacherTab = () => {
         departmentId: "",
       });
     } catch (error) {
-      console.log(error);
+      alert(error.response?.data?.message);
     }
   };
 
@@ -133,7 +135,7 @@ const TeacherTab = () => {
   return (
     <div className="department-container">
       <div className="department-heads">
-        <h2>Список учителей</h2>
+        <h2>Список преподавателей</h2>
         {teachers.map((teacher) => (
           <div key={teacher.id} className="department-head">
             <div>
@@ -158,7 +160,7 @@ const TeacherTab = () => {
         ))}
       </div>
       <div className="create-department-head">
-        <h2>Создание учителя</h2>
+        <h2>Создание преподавателя</h2>
         <form onSubmit={handleCreateTeacher}>
           <label>
             Логин:
@@ -240,6 +242,6 @@ const TeacherTab = () => {
       </div>
     </div>
   );
-};
+});
 
 export default TeacherTab;

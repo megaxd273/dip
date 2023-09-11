@@ -42,6 +42,9 @@ const ProfileTab = observer(() => {
       try {
         const response = await DepHeadService.getDepartments();
         setAllDepartments(response.data);
+        if (formData.facultyId) {
+          filterDepartmentsByFacultyId(formData.facultyId);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -66,9 +69,10 @@ const ProfileTab = observer(() => {
   
     const handleEditClick = () => {
       setIsEditing(true);
+      filterDepartmentsByFacultyId(formData.facultyId);
     };
   
-    const handleCancelClick = () => {
+    const handleCancelClick = () => { 
       setIsEditing(false);
       setFormData(profileData);
     };
@@ -154,7 +158,7 @@ const ProfileTab = observer(() => {
                   <label className="form-label">Кафедра:</label>
                   <select
                     name="departmentId"
-                    value={formData.departmentId || ""}
+                    value={formData.departmentId}
                     onChange={handleChange}
                     className="form-select"
                   >

@@ -1,0 +1,83 @@
+.addendum-tab {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .addendum-tab label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .addendum-tab select {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .addendum-tab h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .addendum-tab p {
+    margin-bottom: 5px;
+  }
+  
+  .addendum-tab h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .addendum-tab table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  
+  .addendum-tab table td,
+  .addendum-tab table th {
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .addendum-tab input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .addendum-tab button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4c8eff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .addendum-tab button:not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  .addendum-tab button:hover {
+    background-color: #3075e6;
+  }
+  
+  .addendum-tab p.empty-message {
+    margin-top: 10px;
+    font-style: italic;
+  }
+  

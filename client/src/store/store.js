@@ -1,11 +1,13 @@
 import {makeAutoObservable} from "mobx"
 import AuthService from "../service/AuthService";
 import axios from "axios";
+import DepHeadService from "../service/DepHeadService";
 
 export default class Store{
     user = {};
     isAuth = false;
     isLoading = false;
+    faculty = 0;
     constructor(){
         makeAutoObservable(this)
     }
@@ -19,6 +21,17 @@ export default class Store{
     setLoading(bool){
         this.isLoading = bool;
     }
+    setFaculty(number){
+        this.faculty=number
+    }
+    async getFaculty(){
+        try {
+            const response = await DepHeadService.getProfile(this.user.id)
+            this.setFaculty(response.data.facultyId)
+        } catch (error) {
+            console.log(error.response?.data?.message)
+        }
+    }
 
     async login(userData){
         try {
@@ -28,7 +41,7 @@ export default class Store{
             this.setAuth(true)
             this.setUser(response.data.user)
         } catch (error) {
-            console.log(error.response?.data?.message)
+            alert(error.response?.data?.message)
         }
     }
     async logout(){
@@ -50,7 +63,7 @@ export default class Store{
             this.setAuth(true)
             this.setUser(response.data.user)
         } catch (error) {
-            console.log(error.response?.data?.message)
+            alert(error.response?.data?.message)
         } finally{
             this.setLoading(false);
         }

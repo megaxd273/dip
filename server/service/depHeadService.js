@@ -3,11 +3,11 @@ const ApiError = require('../middleware/apiError');
 const bcrypt = require('bcrypt');
 
 class DepHeadService {
-    async getTeachers() {
+    async getTeachers(id) {
         try {
             const teachers = await User.findAll({
                 where: { role: 'TEACHER' },
-                include: [{ model: Profile }],
+                include: [{ model: Profile, where: { facultyId: id } }],
             });
             return teachers;
         } catch (error) {
@@ -16,8 +16,11 @@ class DepHeadService {
     }
 
     async createTeacher(teacherData) {
-        try {
             const { login, password, firstName, lastName, middleName, facultyId, departmentId } = teacherData;
+            const existingUser = await User.findOne({ where: { login } });
+            if (existingUser) {
+                throw ApiError.badRequestError("пользователь с таким логином уже существует");
+            }
             const hashedPassword = await bcrypt.hash(password, 3);
             const user = await User.create({ login, password: hashedPassword, role: 'TEACHER' });
             const profile = await Profile.create({ firstName, lastName, middleName });
@@ -39,9 +42,6 @@ class DepHeadService {
                 faculty,
                 department
             };
-        } catch (error) {
-            throw new ApiError(500, 'Ошибка при создании учителя', error);
-        }
     }
 
     async generateRandomPassword() {
@@ -218,7 +218,7 @@ class DepHeadService {
 
             return faculties;
         } catch (error) {
-            throw new ApiError(500,'Ошибка при получении списка факультетов');
+            throw new ApiError(500, 'Ошибка при получении списка факультетов');
         }
     }
 }

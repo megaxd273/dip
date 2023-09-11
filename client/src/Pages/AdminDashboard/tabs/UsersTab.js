@@ -73,23 +73,7 @@ const UsersTab = () => {
 
   return (
     <div className="cont">
-      <div className="panel">
-        <div className="panel-item" onClick={() => sortUsers("login")}>
-          Логин
-        </div>
-        <div className="panel-item" onClick={() => sortUsers("role")}>
-          Роль
-        </div>
-        <div className="panel-name" onClick={() => sortUsers("profile.firstName")}>
-          Имя
-        </div>
-        <div className="panel-item" onClick={() => sortUsers("profile.lastName")}>
-          Фамилия
-        </div>
-        <div className="panel-item" onClick={() => sortUsers("profile.middleName")}>
-          Отчество
-        </div>
-      </div>
+
       <div className="user-list">
         {users.map((user) => (
           <div key={user.id} className="user-item">
@@ -97,8 +81,8 @@ const UsersTab = () => {
               <span className="user-details">
                 <span className="user-login">{user.login}</span>
                 <span className="user-role">{getRoleName(user.role)}</span>
-                <span className="user-name">{user.profile?.firstName}</span>
                 <span className="user-name">{user.profile?.lastName}</span>
+                <span className="user-name">{user.profile?.firstName}</span>
                 <span className="user-name">{user.profile?.middleName}</span>
               </span>
             </div>
