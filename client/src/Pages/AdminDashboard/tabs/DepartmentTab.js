@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import AdminService from "../../../service/AdminService";
-import "./Dep.css";
+import React, { useEffect, useState } from 'react';
+import AdminService from '../../../service/AdminService';
+import './Dep.css';
 
 const DepartmentTab = () => {
   const [departments, setDepartments] = useState([]);
-  const [createDepartmentName, setCreateDepartmentName] = useState("");
-  const [createDepartmentFaculty, setCreateDepartmentFaculty] = useState("");
+  const [createDepartmentName, setCreateDepartmentName] = useState('');
+  const [createDepartmentFaculty, setCreateDepartmentFaculty] = useState('');
   const [editDepartmentId, setEditDepartmentId] = useState(null);
-  const [editDepartmentName, setEditDepartmentName] = useState("");
-  const [editDepartmentFaculty, setEditDepartmentFaculty] = useState("");
+  const [editDepartmentName, setEditDepartmentName] = useState('');
+  const [editDepartmentFaculty, setEditDepartmentFaculty] = useState('');
   const [faculties, setFaculties] = useState([]);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const DepartmentTab = () => {
 
   const createDepartment = async () => {
     if (!createDepartmentName || !createDepartmentFaculty) {
-      alert("Имя отдела и факультет не могут быть пустыми");
+      alert('Имя отдела и факультет не могут быть пустыми');
       return;
     }
 
@@ -46,7 +46,7 @@ const DepartmentTab = () => {
         (faculty) => faculty.name === createDepartmentFaculty
       );
       if (!selectedFaculty) {
-        alert("Выбранный факультет не найден");
+        alert('Выбранный факультет не найден');
         return;
       }
 
@@ -54,8 +54,8 @@ const DepartmentTab = () => {
         createDepartmentName,
         selectedFaculty.id
       );
-      setCreateDepartmentName("");
-      setCreateDepartmentFaculty("");
+      setCreateDepartmentName('');
+      setCreateDepartmentFaculty('');
       fetchDepartments();
     } catch (error) {
       console.log(error);
@@ -70,13 +70,13 @@ const DepartmentTab = () => {
 
   const cancelEditingDepartment = () => {
     setEditDepartmentId(null);
-    setEditDepartmentName("");
-    setEditDepartmentFaculty("");
+    setEditDepartmentName('');
+    setEditDepartmentFaculty('');
   };
 
   const saveDepartment = async (id) => {
     if (!editDepartmentName || !editDepartmentFaculty) {
-      alert("Имя отдела и факультет не могут быть пустыми");
+      alert('Имя отдела и факультет не могут быть пустыми');
       return;
     }
 
@@ -85,7 +85,7 @@ const DepartmentTab = () => {
         (faculty) => faculty.name === editDepartmentFaculty
       );
       if (!selectedFaculty) {
-        alert("Выбранный факультет не найден");
+        alert('Выбранный факультет не найден');
         return;
       }
 
@@ -95,8 +95,8 @@ const DepartmentTab = () => {
         selectedFaculty.id
       );
       setEditDepartmentId(null);
-      setEditDepartmentName("");
-      setEditDepartmentFaculty("");
+      setEditDepartmentName('');
+      setEditDepartmentFaculty('');
       fetchDepartments();
     } catch (error) {
       console.log(error);
@@ -114,7 +114,7 @@ const DepartmentTab = () => {
 
   return (
     <div className="faculty-tab">
-      <div className="faculty-control">
+      <div className="department-control">
         <h2>Управление кафедрами</h2>
         <div>
           <h3>Имя кафедры:</h3>
@@ -151,13 +151,19 @@ const DepartmentTab = () => {
           <div
             key={department.id}
             className={`faculty-item ${
-              editDepartmentId === department.id ? "active" : ""
+              editDepartmentId === department.id ? 'active' : ''
             }`}
           >
             <div className="faculty-item-content">
               <div className="divspan">
                 <span>{department.name}</span>
-                <span>{faculties.find((faculty) => faculty.id === department.facultyId)?.name}</span>
+                <span>
+                  {
+                    faculties.find(
+                      (faculty) => faculty.id === department.facultyId
+                    )?.name
+                  }
+                </span>
               </div>
               {editDepartmentId === department.id ? (
                 <div className="edit-input">

@@ -3,40 +3,41 @@ import React, { useState, useEffect, useContext } from 'react';
 import DatePicker from 'react-datepicker';
 import { context } from '../../..';
 import TeacherService from '../../../service/TeacherService';
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
 const LoadTab = observer(() => {
   const { store } = useContext(context);
   const columnHeaders = [
-    "Лекции",
-    "Практ. зан.",
-    "Лабор. зан.",
-    "Курс. проекты",
-    "РГР",
-    "Контр. раб",
-    "Зачеты",
-    "Консультации",
-    "Экзамены",
-    "Рук. практик",
-    "Рук. дип. раб.",
-    "Конс. дипл. раб.",
-    "Реценз. дипл. раб.",
-    "ГЭК",
-    "Рук. магистр.",
-    "Рук. аспирант.",
+    'Лекции',
+    'Практ. зан.',
+    'Лабор. зан.',
+    'Курс. проекты',
+    'РГР',
+    'Контр. раб',
+    'Зачеты',
+    'Консультации',
+    'Экзамены',
+    'Рук. практик',
+    'Рук. дип. раб.',
+    'Конс. дипл. раб.',
+    'Реценз. дипл. раб.',
+    'ГЭК',
+    'Рук. магистр.',
+    'Рук. аспирант.',
   ];
 
   const [dates, setDates] = useState(Array.from({ length: 26 }, () => null));
-  const [editableColumns, setEditableColumns] = useState(Array.from({ length: 26 }, () => []));
-  const [disciplines, setDisciplines] = useState(Array.from({ length: 26 }, () => ''));
+  const [editableColumns, setEditableColumns] = useState(
+    Array.from({ length: 26 }, () => [])
+  );
+  const [disciplines, setDisciplines] = useState(
+    Array.from({ length: 26 }, () => '')
+  );
   const [loadIds, setLoadIds] = useState([]);
   const [totals, setTotals] = useState(Array.from({ length: 16 }, () => 0));
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
-
   useEffect(() => {
-
-
     fetchData();
   }, [store.user.id, selectedMonth]);
   const fetchData = async () => {
@@ -49,7 +50,9 @@ const LoadTab = observer(() => {
     }
   };
   const populateTable = (loads) => {
-    const sortedLoads = loads.sort((a, b) => new Date(a.date) - new Date(b.date));
+    const sortedLoads = loads.sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    );
 
     const initialDates = sortedLoads.map((load) => new Date(load.date));
     const initialColumns = sortedLoads.map((load) => {
@@ -62,7 +65,7 @@ const LoadTab = observer(() => {
     });
     const initialDisciplines = sortedLoads.map((load) => load.discipline);
     const loadIds = sortedLoads.map((load) => load.id);
-    console.log(initialColumns)
+    console.log(initialColumns);
     setDates(initialDates);
     setEditableColumns(initialColumns);
     setDisciplines(initialDisciplines);
@@ -161,11 +164,11 @@ const LoadTab = observer(() => {
   };
   const handleCreateClick = async () => {
     const newDate = new Date();
-  const currentYear = newDate.getFullYear();
-  const selectedYear = selectedMonth >= 9 ? currentYear -1: currentYear;
-  newDate.setFullYear(selectedYear); 
-  newDate.setMonth(selectedMonth - 1);
-  newDate.setDate(1);
+    const currentYear = newDate.getFullYear();
+    const selectedYear = selectedMonth >= 9 ? currentYear - 1 : currentYear;
+    newDate.setFullYear(selectedYear);
+    newDate.setMonth(selectedMonth - 1);
+    newDate.setDate(1);
     try {
       const newLoad = {
         date: newDate.toISOString().slice(0, 10),
@@ -189,11 +192,14 @@ const LoadTab = observer(() => {
       };
 
       const response = await TeacherService.createLoad(store.user.id, newLoad);
-      fetchData()
+      fetchData();
       const createdLoad = response.data;
 
       const updatedDates = [...dates, null];
-      const updatedColumns = [...editableColumns, Array.from({ length: 16 }, () => '')];
+      const updatedColumns = [
+        ...editableColumns,
+        Array.from({ length: 16 }, () => ''),
+      ];
       const updatedDisciplines = [...disciplines, ''];
       const updatedLoadIds = [...loadIds, createdLoad.id];
 
@@ -210,7 +216,7 @@ const LoadTab = observer(() => {
   };
 
   return (
-    <div >
+    <div>
       <select value={selectedMonth} onChange={handleMonthChange}>
         <option value={9}>Сентябрь</option>
         <option value={10}>Октябрь</option>
@@ -225,7 +231,7 @@ const LoadTab = observer(() => {
         <option value={7}>Июль</option>
       </select>
 
-      <table style={{ borderCollapse: 'collapse' }}>
+      <table style={{ borderCollapse: 'collapse', minWidth: 1410 + 'px' }}>
         <thead>
           <tr>
             <th style={{ border: '1px solid black' }} rowSpan={4}>
@@ -256,7 +262,6 @@ const LoadTab = observer(() => {
           </tr>
         </thead>
         <tbody>
-
           {dates.map((date, rowIndex) => (
             <tr key={rowIndex}>
               <td style={{ border: '1px solid black' }}>
@@ -271,7 +276,9 @@ const LoadTab = observer(() => {
                   <input
                     type="text"
                     value={value || ''}
-                    onChange={(e) => handleColumnChange(rowIndex, columnIndex, e.target.value)}
+                    onChange={(e) =>
+                      handleColumnChange(rowIndex, columnIndex, e.target.value)
+                    }
                     style={{ width: '50px' }}
                   />
                 </td>
@@ -280,18 +287,23 @@ const LoadTab = observer(() => {
                 <input
                   type="text"
                   value={disciplines[rowIndex]}
-                  onChange={(e) => handleDisciplineChange(rowIndex, e.target.value)}
+                  onChange={(e) =>
+                    handleDisciplineChange(rowIndex, e.target.value)
+                  }
                 />
               </td>
               <td>
-                <button onClick={() => handleSaveClick(loadIds[rowIndex])}>Сохранить</button>
+                <button onClick={() => handleSaveClick(loadIds[rowIndex])}>
+                  Сохранить
+                </button>
               </td>
               <td>
-                <button onClick={() => handleDeleteClick(loadIds[rowIndex])}>Удалить</button>
+                <button onClick={() => handleDeleteClick(loadIds[rowIndex])}>
+                  Удалить
+                </button>
               </td>
             </tr>
           ))}
-          
         </tbody>
         <tfoot>
           <tr>

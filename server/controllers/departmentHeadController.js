@@ -3,7 +3,7 @@ const depHeadService = require('../service/depHeadService');
 class DepHeadController {
   async getTeachers(req, res, next) {
     try {
-      const {id} = req.params
+      const { id } = req.params;
       const teachers = await depHeadService.getTeachers(id);
       return res.json(teachers);
     } catch (error) {
@@ -24,10 +24,10 @@ class DepHeadController {
   async updateTeacherPassword(req, res, next) {
     try {
       const { id } = req.params;
-      
-      const newPassword = await depHeadService.generateRandomPassword()
+
+      const newPassword = await depHeadService.generateRandomPassword();
       await depHeadService.updateTeacherPassword(id, newPassword);
-      return res.status(200).json({ newPassword});
+      return res.status(200).json({ newPassword });
     } catch (error) {
       next(error);
     }
@@ -65,7 +65,7 @@ class DepHeadController {
   async updateMethodistPassword(req, res, next) {
     try {
       const { id } = req.params;
-      
+
       const newPassword = await depHeadService.generateRandomPassword();
       await depHeadService.updateMethodistPassword(id, newPassword);
       return res.status(200).json({ newPassword });

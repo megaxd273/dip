@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import AdminService from "../../../service/AdminService";
-import './Users.css'
+import React, { useEffect, useState } from 'react';
+import AdminService from '../../../service/AdminService';
+import './Users.css';
 
 const getRoleName = (role) => {
   switch (role) {
-    case "ADMIN":
-      return "Админ";
-    case "DEPARTMENT_HEAD":
-      return "Зав. кафедры";
-    case "METHODIST":
-      return "Методист";
-    case "TEACHER":
-      return "Преподаватель";
+    case 'ADMIN':
+      return 'Админ';
+    case 'DEPARTMENT_HEAD':
+      return 'Зав. кафедры';
+    case 'METHODIST':
+      return 'Методист';
+    case 'TEACHER':
+      return 'Преподаватель';
     default:
-      return "";
+      return '';
   }
 };
 
@@ -51,48 +51,51 @@ const UsersTab = () => {
       const sortedUsers = [...users].sort((a, b) => {
         const aValue = a[field];
         const bValue = b[field];
-  
+
         if (aValue === null || aValue === undefined) {
           return 1;
         }
         if (bValue === null || bValue === undefined) {
           return -1;
         }
-  
+
         if (aValue === bValue) {
           return 0;
         }
-  
+
         return aValue.localeCompare(bValue);
       });
       setUsers(sortedUsers);
     }
     setSortField(field);
   };
-  
 
   return (
     <div className="cont">
-
       <div className="user-list">
-        {users.map((user) => (
-          <div key={user.id} className="user-item">
-            <div className="user-info">
-              <span className="user-details">
-                <span className="user-login">{user.login}</span>
-                <span className="user-role">{getRoleName(user.role)}</span>
-                <span className="user-name">{user.profile?.lastName}</span>
-                <span className="user-name">{user.profile?.firstName}</span>
-                <span className="user-name">{user.profile?.middleName}</span>
-              </span>
+        {users
+          .filter((el) => el.login !== 'admin')
+          .map((user) => (
+            <div key={user.id} className="user-item">
+              <div className="user-info">
+                <span className="user-details">
+                  <span className="user-login">{user.login}</span>
+                  <span className="user-role">{getRoleName(user.role)}</span>
+                  <span className="user-name">{user.profile?.lastName}</span>
+                  <span className="user-name">{user.profile?.firstName}</span>
+                  <span className="user-name">{user.profile?.middleName}</span>
+                </span>
+              </div>
+              <div className="buttons">
+                <button
+                  className="button button-delete"
+                  onClick={() => removeUser(user.id)}
+                >
+                  Удалить
+                </button>
+              </div>
             </div>
-            <div className="buttons">
-              <button className="button button-delete" onClick={() => removeUser(user.id)}>
-                Удалить
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
